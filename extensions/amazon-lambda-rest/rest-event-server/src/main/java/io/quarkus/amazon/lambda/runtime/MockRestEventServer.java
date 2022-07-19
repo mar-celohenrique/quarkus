@@ -73,9 +73,11 @@ public class MockRestEventServer extends MockEventServer {
                 if (param.contains("=")) {
                     String[] keyval = param.split("=");
                     try {
+                        String key = keyval[0];
+                        String value = keyval.length == 2 ? keyval[1] : "";
                         event.getMultiValueQueryStringParameters().add(
-                                URLDecoder.decode(keyval[0], StandardCharsets.UTF_8.name()),
-                                URLDecoder.decode(keyval[1], StandardCharsets.UTF_8.name()));
+                                URLDecoder.decode(key, StandardCharsets.UTF_8.name()),
+                                URLDecoder.decode(value, StandardCharsets.UTF_8.name()));
                     } catch (UnsupportedEncodingException e) {
                         log.error("Failed to parse query string", e);
                         ctx.response().setStatusCode(400).end();
